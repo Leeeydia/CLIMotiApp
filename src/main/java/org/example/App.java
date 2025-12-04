@@ -17,7 +17,6 @@ public class App {
 
         int lastId = 0;
 
-
         List<Motivation> motivations = new ArrayList<>();
 
         while (true) {
@@ -34,41 +33,38 @@ public class App {
 
             if (cmd.equals("add")) {
                 int id = lastId + 1;
-
-                // 정보
                 System.out.print("body : ");
                 String body = sc.nextLine();
                 System.out.print("source : ");
                 String source = sc.nextLine();
 
-                //조립
-                Motivation motivation = new Motivation();
-                motivation.id = id;
-                motivation.body = body;
-                motivation.source = source;
+                Motivation motivation = new Motivation(id, body, source);
 
                 motivations.add(motivation);
-
-
-
 
                 System.out.printf("%d번 motivation이 등록되었습니다\n", id);
                 lastId++;
             } else if (cmd.equals("list")) {
                 System.out.println("=".repeat(40));
-                System.out.printf("   번호   /    source    /    motivation   \n");
-
+                System.out.printf("   번호   /    source      /    body   \n");
 
                 if (motivations.size() == 0) {
                     System.out.println("등록된거 없음 xxxxx");
-                } else {
-                    System.out.println("1개 이상 있음 oooo");
-
-                    // 실제로 한 개 이상 있는 걸 보여줘야 함
-                    // for-each ?  %d %s %S 이거 찾아보기
-                    // ArrayList get으로 가져오는 법 공부
+                    continue;
                 }
+                for (int i = motivations.size() - 1; i >= 0; i--) {
+                    Motivation motivation = motivations.get(i);
 
+                    if (motivation.getSource().length() > 7) {
+                        System.out.printf("   %d     /    %s   /    %s   \n", motivation.getId(), motivation.getSource().substring(0, 7) + "...", motivation.getBody());
+                        continue;
+                    }
+                    System.out.printf("   %d     /    %s     /    %s   \n", motivation.getId(), motivation.getSource(), motivation.getBody());
+                }
+                System.out.println("=".repeat(40));
+
+            } else {
+                System.out.println("사용할 수 없는 명령어야");
             }
         }
 
@@ -76,10 +72,40 @@ public class App {
     }
 }
 
-// public 으로 X
-// private로 사용하는 것이 관례 -> 게터 세터 ? 복습
 class Motivation {
-    int id;
+    private int id;
+    private String body;
+    private String source;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public Motivation(int id, String body, String source) {
+        this.id = id;
+        this.body = body;
+        this.source = source;
+    }
 
     @Override
     public String toString() {
@@ -90,6 +116,4 @@ class Motivation {
                 '}';
     }
 
-    String body;
-    String source;
 }
