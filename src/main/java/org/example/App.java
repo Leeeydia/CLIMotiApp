@@ -17,11 +17,6 @@ public class App {
 
         int lastId = 0;
 
-//        Motivation motivation0 = null;
-//        Motivation motivation1 = null;
-//        Motivation motivation2 = null;
-
-//        Motivation[] motivations = new Motivation[10];
 
         List<Motivation> motivations = new ArrayList<>();
 
@@ -39,11 +34,14 @@ public class App {
 
             if (cmd.equals("add")) {
                 int id = lastId + 1;
+
+                // 정보
                 System.out.print("body : ");
                 String body = sc.nextLine();
                 System.out.print("source : ");
                 String source = sc.nextLine();
 
+                //조립
                 Motivation motivation = new Motivation();
                 motivation.id = id;
                 motivation.body = body;
@@ -52,33 +50,23 @@ public class App {
                 motivations.add(motivation);
 
 
-//                if (motivation.id == 1) {
-//                    motivation0 = motivation;
-//                } else if (motivation.id == 2) {
-//                    motivation1 = motivation;
-//                } else if (motivation.id == 3) {
-//                    motivation2 = motivation;
-//                }
 
-//                motivations[id - 1] = motivation;
 
                 System.out.printf("%d번 motivation이 등록되었습니다\n", id);
                 lastId++;
             } else if (cmd.equals("list")) {
                 System.out.println("=".repeat(40));
                 System.out.printf("   번호   /    source    /    motivation   \n");
-//                System.out.println(motivation2.toString());
-//                System.out.println(motivation1.toString());
-//                System.out.println(motivation0.toString());
 
-//                for (Motivation motivation : motivations) {
-//                    System.out.println(motivation.toString());
-//                }
 
                 if (motivations.size() == 0) {
                     System.out.println("등록된거 없음 xxxxx");
                 } else {
                     System.out.println("1개 이상 있음 oooo");
+
+                    // 실제로 한 개 이상 있는 걸 보여줘야 함
+                    // for-each ?  %d %s %S 이거 찾아보기
+                    // ArrayList get으로 가져오는 법 공부
                 }
 
             }
@@ -88,6 +76,8 @@ public class App {
     }
 }
 
+// public 으로 X
+// private로 사용하는 것이 관례 -> 게터 세터 ? 복습
 class Motivation {
     int id;
 
